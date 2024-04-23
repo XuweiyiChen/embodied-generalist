@@ -82,6 +82,28 @@ pip install -r requirements.txt
 # install peft separately to escape its install_requires
 pip install peft==0.5.0 --no-deps
 ```
+To make sure that you can run everything smoothly on Ubuntu 22.04 or any other model, you need GCC/G++ between 5.0.0 and 10.0.0 and CUDA version at exactly 11.3.
+
+I have installed GCC/G++ at 9.0.0 by 
+```
+sudo apt install gcc-9 -y
+```
+
+and then install cuda 11.3 if you do not have it under */usr/local* by
+```
+wget https://developer.download.nvidia.com/compute/cuda/11.3.0/local_installers/cuda_11.3.0_465.19.01_linux.run
+sudo sh cuda_11.3.0_465.19.01_linux.run
+```
+
+Do not install anything more than cuda 11.3 and then you can edit your bash file such as
+```
+export CXX='/usr/bin/g++-9'
+alias g++="/usr/bin/g++-9"
+export CUDA_HOME="/usr/local/cuda-11.3"
+export PATH=/usr/local/cuda-11.3/bin:$PATH
+```
+
+Lastly, **Comment out line 10 in pcd_backbone.py. Here is the line: [here](https://github.com/XuweiyiChen/embodied-generalist/blob/df003ea778c283f1fe181f3af94cf2898f3b1cf5/model/pcd_backbone.py#L10)** if you do not plan to use *pointnext*.
 
 3. Install third party libraries (for point cloud backbones). Installation failure may occur for `PointNext`, resulting in error when importing `PointNext`. If this happens, there are two solutions: 1) comment the line of importing `PointNext`, or 2) download the [compiled file](https://drive.google.com/file/d/1MkOiy3UKitVFMccePxk3nl-XCJeaxBvR/view?usp=sharing) and place it at `model/pointnext/cpp/pointnet2_batch/`.
 
