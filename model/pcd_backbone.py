@@ -7,7 +7,7 @@ from hydra.utils import instantiate
 from torch import nn
 
 from model.pointnetpp.pointnetpp import PointNetPP
-from model.pointnext.pointnext import PointNext
+# from model.pointnext.pointnext import PointNext
 from model.pointbert.pointbert import PointBERT
 from model.utils import disabled_train
 
